@@ -29,5 +29,7 @@ https://buildroot.org/manual.html#submitting-patches
 
 TUTORIAL SISTEMAS EMBARCADOS
 
-TESTE
+Para construir este tutorial inicialmente foi utilizado os tutoriais 1.1 e 1.2 disponíveis no moodle de autoria do professor.
+Estes tutoriais têm o objetivo de construir uma distribuição Linux para emulação com QEMU, baseado no Buildroot.
+
 
