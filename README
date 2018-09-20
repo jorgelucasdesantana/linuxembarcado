@@ -29,7 +29,17 @@ https://buildroot.org/manual.html#submitting-patches
 
 TUTORIAL SISTEMAS EMBARCADOS
 
+
+A implementação deste tutorial consiste em gerar uma distribuição Linux com integrado a um servidor WEB.
+O Servidor WEb foi escrito em Phyton associado a um script escrito em HTML para visualização. 
+Para isso foi habilitado através terminal o comando menuconfig ->  Interpreter languages and scripting -> WCHAR 
+para adicionar um interpretador para o phyton.
+
 Para construir este tutorial inicialmente foi utilizado os tutoriais 1.1 e 1.2 disponíveis no moodle de autoria do professor.
 Estes tutoriais têm o objetivo de construir uma distribuição Linux para emulação com QEMU, baseado no Buildroot.
+
+
+ 
+
 
 
