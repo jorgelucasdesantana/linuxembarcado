@@ -38,6 +38,11 @@ para adicionar um interpretador para o phyton.
 Para construir este tutorial inicialmente foi utilizado os tutoriais 1.1 e 1.2 disponíveis no moodle de autoria do professor.
 Estes tutoriais têm o objetivo de construir uma distribuição Linux para emulação com QEMU, baseado no Buildroot.
 
+Na sequencia utilizamos o script disponível no moodle chamado de server.py. A função é Manipular solicitações de http
+e construir o arquivo html para cada conexão. Na sequência a o webserver é inicializado através do socketserver que fara a conexão,
+através da porta 8080 do localhost. Para isso basta entrar no browser e inseir localhost 8080
+
+
 
  
 
