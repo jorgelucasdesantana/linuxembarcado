@@ -30,56 +30,23 @@ https://buildroot.org/manual.html#submitting-patches
 TUTORIAL SISTEMAS EMBARCADOS
 
 
-A implementação deste tutorial consiste em gerar uma distribuição Linux com integrado a um servidor WEB.
+A implementação deste tutorial consiste em gerar uma distribuição Linux que possua um servidor WEB.
 O Servidor WEb foi escrito em Phyton associado a um script escrito em HTML para visualização. 
 Para isso foi habilitado através terminal o comando menuconfig ->  Interpreter languages and scripting -> WCHAR 
 para adicionar um interpretador para o phyton.
 
 Para construir este tutorial inicialmente foi utilizado os tutoriais 1.1 e 1.2 disponíveis no moodle de autoria do professor.
-Estes tutoriais têm o objetivo de construir uma distribuição Linux para emulação com QEMU, baseado no Buildroot.
+Estes tutoriais têm o objetivo de construir uma distribuição Linux para emulação com QEMU, baseado no Buildroot. O buildroot
+é uma popular alternativa para desenvolvimento de sistemas linux embarcados de forma customizada.
 
-Na sequencia utilizamos o script disponível no moodle chamado de server.py, conforme abaixo:
-
-import SimpleHTTPServer
-import SocketServer
-import os.path, sys
-import datetime
-
-#Formating string. The %s will be substituted by system data.
-html = "<!DOCTYPE html>  \
-		<html> \
-			<body> \
-				<h1>System Information</h1> \
-				<p>Local Data: %s</p> \
-			</body> \
-		</html>"
-
-#Handle de http requests.
-class MyRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
-	#Build the html file for every connection.
-	def makeindex(self):
-		tofile = html % datetime.datetime.now().time()
-		f = open("index.html", "w")
-		f.write(tofile)
-		f.close()
-		return
-	
-	#Method http GET.	
-	def do_GET(self):
-		self.makeindex()
-		self.path = '/index.html'
-		return SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
-
-#Start the webserver.
-Handler = MyRequestHandler
-server = SocketServer.TCPServer(('0.0.0.0', 8080), Handler)
-server.serve_forever()
+Em seguida utilizamos como base o script disponível no moodle chamado de server.py,
+Sua função é Manipular solicitações de http e construir o arquivo html para cada conexão. 
+O webserver é inicializado através do socketserver que fara a conexão,
+através do indereço IP escolhido para a interface de rede do guest: 192.168.1.10
+Esse endereço definido será a forma de acesso a página rodando na distribuição, para acessar basta entrar no browser e 
+inseir o IP.
 
 
-
-A função é Manipular solicitações de http
-e construir o arquivo html para cada conexão. Na sequência a o webserver é inicializado através do socketserver que fara a conexão,
-através da porta 8080 do localhost. Para isso basta entrar no browser e inseir localhost 8080
 
 
 
