@@ -46,7 +46,7 @@ sua função é manipular solicitações de http e construir o arquivo html para
 O webserver é inicializado através do socketserver que fara a conexão,
 através do indereço IP escolhido para a interface de rede do guest: 192.168.1.10
 Esse endereço será a forma de acesso a página rodando na distribuição, para acessar basta entrar no browser e 
-inseir o IP. Nessa página serão mostrados as informações básicas sobre o funcionamento do sistema (target).
+inseir o IP. Nessa página serão mostrados as informações básicas sobre o funcionamento do sistema (target) a cada acesso.
 Os códigos que coletam essas informações foram desenvolvidos utilizando a biblioteca psutil que para funcionar deve
 estar abilitada dentro da distribuição emulada. 
 
@@ -58,7 +58,7 @@ O arquivo qemu-ifup configura informações da forma de conexão, onde definimos
 Já o arquivo S41network-config definimos quais os IPs do host e do guest para estabelecer configurações de inicio e 
 fim de comunicação.
 
-Com esses arquivos preparados na pasta custom-scripts basta rodar o sistema linux que ele ao iniciar executará as configurações
+Com esses arquivos preparados na pasta custom-scripts basta rodar o sistema linux, ele ao iniciar executará as configurações
 que foram preparadas dentro dos arquivos préviamente esplicados.
 
 
