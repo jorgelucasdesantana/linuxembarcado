@@ -30,23 +30,34 @@ https://buildroot.org/manual.html#submitting-patches
 TUTORIAL SISTEMAS EMBARCADOS
 
 A implementação deste tutorial consiste em gerar uma distribuição Linux que possua um servidor WEB.
-O Servidor WEb foi escrito em Phyton associado a um script escrito em HTML para visualização. 
-Para isso foi habilitado através terminal o comando menuconfig ->  Interpreter languages and scripting -> WCHAR 
-para adicionar um interpretador para o phyton.
+O Servidor WEb foi escrito em Phyton associado a um script escrito em HTML para visualização. As informações que devem aparecer de forma 
+dinâmica são:
+● Data e hora do sistema;
+● Uptime (tempo de funcionamento sem reinicialização do sistema) em segundos;
+● Modelo do processador e velocidade;
+● Capacidade ocupada do processador (%);
+● Quantidade de memória RAM total e usada (MB);
+● Versão do sistema;
+● Lista de processos em execução (PID e Nome).
 
 Para construir este tutorial inicialmente foi utilizado os tutoriais 1.1 e 1.2 disponíveis no moodle de autoria do professor.
 Estes tutoriais têm o objetivo de construir uma distribuição Linux para emulação com QEMU, baseado no Buildroot. O buildroot
-é uma popular alternativa para desenvolvimento de sistemas linux embarcados de forma customizada.
+é uma popular alternativa para desenvolvimento de sistemas linux embarcados de forma customizada. Acessando pelo terminal a pasta 
+do buildroot através do comando $ make menuconfig podemos habilitar as configurações necessárias:
 
+A) Através terminal o comando menuconfig ->  Interpreter languages and scripting -> WCHAR 
+para adicionar um interpretador para o phyton.
+B) Target packages ->  Interpreter languages and scripting -> [*] python External python modules ->  [*] python-psutil
+para adicionar o pacote psutil.
+                
 Dentro da pasta buildroot foi criada a pasta custom-scripts onde serão colocados os arquivos que farão a configuração
 do nosso sistema quando inicializado. Ao todo foram 4: teste1.py , pre-build.sh , qemu-ifup , S41network-config.
  
 Em seguida utilizamos como base o script disponível no moodle chamado de server.py e construimos o arquivo teste1.py,
-sua função é manipular solicitações de http e construir o arquivo html para cada conexão.
-O webserver é inicializado através do socketserver que fara a conexão,
-através do indereço IP escolhido para a interface de rede do guest: 192.168.1.10
+sua função é manipular solicitações de http e construir o arquivo html para cada conexão. O webserver é inicializado 
+através do socketserver que fará a conexão, através do endereço IP e porta escolhido para a interface de rede do guest: 192.168.1.10:8080
 Esse endereço será a forma de acesso a página rodando na distribuição, para acessar basta entrar no browser e 
-inseir o IP. Nessa página serão mostrados as informações básicas sobre o funcionamento do sistema (target) a cada acesso.
+inseir o IP e porta. Nessa página serão mostrados as informações básicas sobre o funcionamento do sistema (target) a cada acesso.
 Os códigos que coletam essas informações foram desenvolvidos utilizando a biblioteca psutil que para funcionar deve
 estar abilitada dentro da distribuição emulada. 
 
@@ -59,7 +70,17 @@ Já o arquivo S41network-config definimos quais os IPs do host e do guest para e
 fim de comunicação.
 
 Com esses arquivos preparados na pasta custom-scripts basta rodar o sistema linux, ele ao iniciar executará as configurações
-que foram preparadas dentro dos arquivos préviamente esplicados.
+que foram preparadas dentro dos arquivos préviamente esplicados. Para emular o sistema com o QEMO basta executar na pasta buildroot
+atráves do terminal o comando:
+$ make
+e em seguida rodar a emulação do guest:
+$ sudo qemu-system-i386 --device e1000,netdev=eth0,mac=aa:bb:cc:dd:ee:ff \
+    --netdev tap,id=eth0,script=custom-scripts/qemu-ifup \
+    --kernel output/images/bzImage \
+    --hda output/images/rootfs.ext2 --nographic \
+    --append "console=ttyS0 root=/dev/sda" 
+    
+Feito isso basta acessar o navegador e acessar o endereço 192.168.1.10:8080, no qual deverão aparecer todas as informações.
 
 
 
