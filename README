@@ -55,7 +55,7 @@ do nosso sistema quando inicializado. Ao todo foram 4: teste1.py , pre-build.sh 
  
 Em seguida utilizamos como base o script disponível no moodle chamado de server.py e construimos o arquivo teste1.py,
 sua função é manipular solicitações de http e construir o arquivo html para cada conexão. O webserver é inicializado 
-através do socketserver que fará a conexão, através do endereço IP e porta escolhido para a interface de rede do guest: 192.168.1.10:8080
+através do socketserver que fará a conexão, através do endereço IP e porta escolhido para a interface de rede do guest: 192.168.1.10:8082
 Esse endereço será a forma de acesso a página rodando na distribuição, para acessar basta entrar no browser e 
 inseir o IP e porta. Nessa página serão mostrados as informações básicas sobre o funcionamento do sistema (target) a cada acesso.
 Os códigos que coletam essas informações foram desenvolvidos utilizando a biblioteca psutil que para funcionar deve
@@ -80,7 +80,7 @@ $ sudo qemu-system-i386 --device e1000,netdev=eth0,mac=aa:bb:cc:dd:ee:ff \
     --hda output/images/rootfs.ext2 --nographic \
     --append "console=ttyS0 root=/dev/sda" 
     
-Feito isso basta acessar o navegador e acessar o endereço 192.168.1.10:8080, no qual deverão aparecer todas as informações.
+Feito isso basta acessar o navegador e acessar o endereço 192.168.1.10:8082, no qual deverão aparecer todas as informações.
 
 
 
